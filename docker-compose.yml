@@ -1,0 +1,23 @@
+version: '3'
+services: 
+  web: 
+    build: .
+    command: yarn start
+    volumes: 
+      - .:/usr/app/
+    ports: 
+      - "3000:3000"
+    depends_on: 
+      - db
+    links:
+      - db
+    env_file:
+      - .env
+      
+  db: 
+    image: postgres:latest
+    restart: always
+    ports: 
+      - "5432:5432"
+    env_file:
+      - .env
